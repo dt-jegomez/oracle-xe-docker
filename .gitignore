@@ -1,0 +1,6 @@
+# Variables de entorno con credenciales
+.env
+
+# Datos de Oracle generados localmente
+scripts/setup/*.log
+scripts/startup/*.log
