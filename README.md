@@ -122,6 +122,18 @@ GRANT CONNECT, RESOURCE TO local_user;
 
 > Si recibes `ORA-01917: user or role does not exist` al hacer el GRANT, significa que el CREATE USER no se ejecutó correctamente. Verifica que el ALTER SESSION se haya ejecutado antes.
 
+Luego configura el tablespace y desbloquea la cuenta:
+
+```sql
+ALTER USER "LOCAL_USER"
+DEFAULT TABLESPACE "USERS"
+TEMPORARY TABLESPACE "TEMP"
+ACCOUNT UNLOCK;
+
+-- QUOTAS
+ALTER USER "LOCAL_USER" QUOTA UNLIMITED ON "USERS";
+```
+
 ## Notas
 
 - La imagen es `container-registry.oracle.com/database/express:21.3.0-xe`
