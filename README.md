@@ -108,6 +108,20 @@ docker compose down -v
     └── startup/                # Se ejecutan en cada arranque del contenedor
 ```
 
+## Crear un usuario en el PDB
+
+Al conectarse por primera vez, Oracle abre sesión en el CDB raíz. Para crear usuarios debes cambiar al PDB `xepdb1` primero, de lo contrario obtendrás el error `ORA-65096`.
+
+```sql
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+CREATE USER local_user IDENTIFIED BY "local123456789";
+
+GRANT CONNECT, RESOURCE TO local_user;
+```
+
+> Si recibes `ORA-01917: user or role does not exist` al hacer el GRANT, significa que el CREATE USER no se ejecutó correctamente. Verifica que el ALTER SESSION se haya ejecutado antes.
+
 ## Notas
 
 - La imagen es `container-registry.oracle.com/database/express:21.3.0-xe`
